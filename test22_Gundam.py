@@ -5,9 +5,60 @@
 from sys import exit
 import time, os, sys, tty, termios
 
+global GOLD, NUMBER, NAME
+
+
+def say_bye():
+
+	ans_one = raw_input("\n Type[1or2]：")
+
+	if ans_one == "1":
+		print "\n Zeastion >>> 不用客气，这里有你的启动资金，后会有期！\n"
+		raw_input(" 按下回车接过钱袋 >>>")
+		print "\n *** 得到2000金币 ***"
+		time.sleep(0.5)
+		GOLD = 2000
+		print "\n 账户余额： %d\n 前往武器店 ...\n" % GOLD
+		time.sleep(1)
+	
+	elif ans_one == "2":
+		print "\n Zeastion >>> 呵呵！\n"
+		time.sleep(0.5)
+		print "\n 系统提示：获得新手金币奖励 --- 1000\n"
+		GOLD = 1000
+		print " 账户余额： %d\n" % GOLD
+		raw_input(" 按下回车离开")
+		print "\n 前往武备店 ...\n"
+
+
+def getgundam():
+	
+	#获取高达
+
+	#global GOLD, NUMBER
+	
+	print " Zeastion >>> 现在你已了解这些机体数据\n 那么，选择哪一台？\n"
+	NUMBER = raw_input(" 请输入选择的机体编号[1-4]：")
+	#number = int(NUMBER)
+
+	if int(NUMBER) in range (0, 5): 
+
+		print "\n 高达信息更新\n 绑定驾驶员\n 请稍侯 ...\n\n"
+		time.sleep(1.2)
+	
+		information()
+	
+		print " |    驾驶员          %s |\n +---------------------------+\n" % NAME
+		time.sleep(0.5)
+		raw_input(" 绑定完毕，敲击回车确定")
+
+		print " Zeastion >>> 好了 \033[5;31;47m%s\033[0m 接下来需要给你的高达配备各种装备\n 具体事宜武备店老板 Jack 会给你做详细介绍，再会！\n 1- \"多谢老Z！\"\n 2- \"真是受够你了，快走吧！\"" % NAME
+		
+		say_bye()	
+
 def information():
 	
-	global NUMBER, HP, MP, AK, DF
+	#global NUMBER, HP, MP, AK, DF	
 	
 	if NUMBER == "1":
 		print "\n +---------------------------+\n | 1- GAT-X105 Strike Gundam |\n -----------------------------\n |    初始HP             550 |\n -----------------------------\n |    初始MP             150 |\n -----------------------------\n |    攻击力              75 |\n -----------------------------\n |    防御力              30 |\n +---------------------------+\n"
@@ -40,11 +91,12 @@ def information():
 	else:
 		print "\n 输入出错\n"
 
+
 def inquire():
 	
 	#查询高达机体信息
 	
-	global NUMBER
+	#global NUMBER
 
 	while True:
 
@@ -64,9 +116,11 @@ def inquire():
 		elif again == "n":
 			print "\n 明白\n"
 			time.sleep(0.5)
-			getgun()
+			
+			getgundam()
 		else:
 			print "\n 指令出错，重新查看信息 \n"
+
 
 def pwd_input():
 
@@ -99,6 +153,7 @@ def pwd_input():
 	print
 	return pwd
 
+
 def start():
 
 	print """\n **************************
@@ -113,8 +168,8 @@ def start():
 	      接下来我需要记录你的相关信息!"""
 	
 	time.sleep(0.5)
-	global GOLD
-	global NAME 
+	#global GOLD
+	#global NAME 
 	NAME = raw_input(" Zeastion >>> 姓名？")
 	age = raw_input(" Zeastion >>> 年龄？")
 	nationality = raw_input(" Zeastion >>> 国籍？")
@@ -147,29 +202,11 @@ def start():
 
 	print " Zeastion >>> 恭喜你 \033[5;31;47m%s\033[0m ，你获得了Gundam的驾驶权\n" % NAME
 	time.sleep(0.5)
-	print " Zeastion >>> 选择你希望驾驶的高达\n\n"
-	time.sleep(0.8)
+	print " 仓库开启中 ...\n\n"
+	time.sleep(1)
 
 	inquire()
 	
 
 start()
 
-"""
-
-def state():
-
-	global ak, df, nak, ndf
-	if NUMBER == "1":
-		print \"""+------------------------------+
-			 | 1- GAT-X105 Strike Gundam    |
-			 --------------------------------
-			 |    HP                    550 |
-			 --------------------------------
-			 |    MP                    150 |
-			 --------------------------------
-			 |    攻击力     75 + %d = %d |
-			 --------------------------------
-			 |    防御力     30 + %d = %d |
-			 +------------------------------+\""" % (nak, ATK)
-"""

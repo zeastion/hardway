@@ -37,7 +37,7 @@ def equipwea():
 		weapon_1()
 		time.sleep(1)
 		GOLD -= 700
-		print "\n 资   金：-700\n 账户余额：%d" % GOLD
+		print "\n 资    金：-700\n 账户余额：%d" % GOLD
 		time.sleep(1)
 		raw_input("\n 绑定完毕，攻击力 +120 \n\n 回车确定")
 		NAK = 120
@@ -46,7 +46,7 @@ def equipwea():
 		weapon_2()
 		time.sleep(1)
 		GOLD -= 800
-		print "\n 资   金：-800\n 账户余额：%d" % GOLD
+		print "\n 资    金：-800\n 账户余额：%d" % GOLD
 		time.sleep(1)
                 raw_input("\n 绑定完毕，攻击力 +150 \n\n 回车确定")
                 NAK = 150
@@ -55,7 +55,7 @@ def equipwea():
 		weapon_3()
 		time.sleep(1)
                 GOLD -= 1000
-                print "\n 资   金：-1000\n 账户余额：%d" % GOLD
+                print "\n 资    金：-1000\n 账户余额：%d" % GOLD
 		time.sleep(1)
                 raw_input("\n 绑定完毕，攻击力 +210 \n\n 回车确定")
                 NAK = 210
@@ -67,11 +67,55 @@ def equipwea():
 		NAK = 0		
 
 
+def armor_1():
+
+	print "\n 获得防具：原子盾[白]\n"
+        driver()
+        print " | 原子盾[白]   >>>   已装备 |\n +---------------------------+"
+	
+def armor_2():
+
+	print "\n 获得防具：纳米光罩[蓝]\n"
+        driver()
+        print " | 纳米光罩[蓝]  >>>   已装备 |\n +---------------------------+"
+
+def armor_null():
+
+	print "\n 未装备防具\n"
+        driver()
+        print " |    防  具    >>>       无 |\n +---------------------------+"
+
+
 def equiparmor():
+
+	global GOLD, NDF
+        armor = raw_input("\n 输入所需购买的装备编号[1-2]，或随便敲点什么放弃购买：")
+
+        if armor == "1":
+                armor_1()
+                time.sleep(1)
+                GOLD -= 600
+                print "\n 资    金：-600\n 账户余额：%d" % GOLD
+                time.sleep(1)
+                raw_input("\n 绑定完毕，防御力 +90 \n\n 回车确定")
+                NDF = 90
+
+        elif armor == "2":
+                armor_2()
+                time.sleep(1)
+                GOLD -= 700
+                print "\n 资    金：-700\n 账户余额：%d" % GOLD
+                time.sleep(1)
+                raw_input("\n 绑定完毕，防御力 +120 \n\n 回车确定")
+                NDF = 120
+
+        else:
+                armor_null()
+                time.sleep(1)
+                print "\n 啥也不买，抠死了 =。=\n\n 账户余额：%d" % GOLD
+                NDF = 0
 	
 	
-
-
 def wea():
 	
 	print "\n 武器库开启中 ...\n"
@@ -131,6 +175,7 @@ def ans_2():
 	ans_2 = raw_input("\n 确定要裸装出击？\n\n 1- 是的，我相信自己的实力\n 2- 呃，还是买点装备吧\n\n Type[1or2]:")
 	if ans_2 == "1":
 		#chuji
+		print "chuji"
 	elif ans_2 == "2":
 		shop()
 	else:
@@ -140,12 +185,36 @@ def ans_2():
 def ans_3():
 
 	ans_3 = raw_input("\n 还未装备防具\n\n 1- 是的，我不需要\n 2- 呃，我还是买点吧\n\n Type[1or2]:")
+	if ans_3 == "1":
+		#chuji
+		print "chuji"
+	elif ans_3 == "2":
+		shop()
+	else:
+		print "\n 指令出错"
+		ans_3()
+
+def ans_4():
 	
+	ans_4 = raw_input("\n 还未装备武器\n\n 1- 我不需要武器\n 2- 还是买一点吧\n\n Type[1or2]:")
+	if ans_4 == "1":
+		#chuji
+		print "chuji"
+	elif ans_4 == "2":
+		shop()
+	else:
+		print "\n 指令出错"
+		ans_4()
+
+def ans_5():
+	
+	print "\n 装备齐全，出击！"
+	# chuji
 
 
 def shop():
 
-	need = raw_input(" 我需要：")
+	need = raw_input(" 我需要[武器or防具]：")
 
 	if "武器" in need:
 		time.sleep(0.5)
@@ -163,7 +232,10 @@ def shop():
 		ans_2()
 	elif NAK > 0 and NDF == 0:
 		ans_3()
-		
+	elif NAK == 0 and NDF > 0:
+		ans_4()
+	else:
+		ans_5()
 		
 
 

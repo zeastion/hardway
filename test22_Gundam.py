@@ -30,7 +30,7 @@ def weapon_null():
 
 def equipwea():
 	
-	global GOLD, NAK
+	global GOLD, NAK, NDF
 	weapon = raw_input("\n 输入所需购买的装备编号[1-3]，或随便敲点什么放弃购买：")
 
 	if weapon == "1":
@@ -77,7 +77,7 @@ def armor_2():
 
 	print "\n 获得防具：纳米光罩[蓝]\n"
         driver()
-        print " | 纳米光罩[蓝]  >>>   已装备 |\n +---------------------------+"
+        print " | 纳米光罩[蓝] >>>   已装备 |\n +---------------------------+"
 
 def armor_null():
 
@@ -88,7 +88,7 @@ def armor_null():
 
 def equiparmor():
 
-	global GOLD, NDF
+	global GOLD, NAK, NDF
         armor = raw_input("\n 输入所需购买的装备编号[1-2]，或随便敲点什么放弃购买：")
 
         if armor == "1":
@@ -169,13 +169,25 @@ def armor():
 
 	equiparmor()
 
+def nak_ndf():
+
+	global NAK, NDF
+
+	if NAK == 0 and NDF ==0:
+		ans_2()
+	elif NAK > 0 and NDF == 0:
+		ans_3()
+	elif NAK == 0 and NDF > 0:
+		ans_4()
+	else:
+		ans_5()
+
 
 def ans_2():
 	
-	ans_2 = raw_input("\n 确定要裸装出击？\n\n 1- 是的，我相信自己的实力\n 2- 呃，还是买点装备吧\n\n Type[1or2]:")
+	ans_2 = raw_input("\n 确定要裸装出击？\n -----------------\n\n 1- 是的，我相信自己的实力\n 2- 呃，还是买点装备吧\n\n Type[1or2]:")
 	if ans_2 == "1":
-		#chuji
-		print "chuji"
+		Add()
 	elif ans_2 == "2":
 		shop()
 	else:
@@ -184,36 +196,69 @@ def ans_2():
 
 def ans_3():
 
-	ans_3 = raw_input("\n 还未装备防具\n\n 1- 是的，我不需要\n 2- 呃，我还是买点吧\n\n Type[1or2]:")
+	ans_3 = raw_input("\n 还未装备防具\n -----------------\n\n 1- 是的，我不需要\n 2- 呃，我还是买点吧\n\n Type[1or2]:")
 	if ans_3 == "1":
-		#chuji
-		print "chuji"
+		Add()
 	elif ans_3 == "2":
-		shop()
+		armor()
+		nak_ndf()
 	else:
 		print "\n 指令出错"
 		ans_3()
 
 def ans_4():
 	
-	ans_4 = raw_input("\n 还未装备武器\n\n 1- 我不需要武器\n 2- 还是买一点吧\n\n Type[1or2]:")
+	ans_4 = raw_input("\n 还未装备武器\n -----------------\n\n 1- 我不需要武器\n 2- 还是买一点吧\n\n Type[1or2]:")
 	if ans_4 == "1":
-		#chuji
-		print "chuji"
+		Add()
 	elif ans_4 == "2":
-		shop()
+		wea()
+		nak_ndf()
 	else:
 		print "\n 指令出错"
 		ans_4()
 
 def ans_5():
 	
-	print "\n 装备齐全，出击！"
-	# chuji
+	print "\n 装备齐全！\n -----------------"
+	Add()
 
+
+def Add():
+
+	global ak, df, ATK, DEF 
+
+	ATK = ak + NAK
+	DEF = df + NDF
+
+	time.sleep(0.5)
+	print "\n 机体平衡性测试\n ------------------- 100%\n"
+	time.sleep(0.5)
+	print "\n 驾驶员体能检测\n ------------------- 100%\n"
+	time.sleep(0.5)
+	print "\n 启动 GundamOS \n ------------------- 100%\n\n"
+	time.sleep(1)
+	pass_1()
+
+def pass_1():
+
+	passw = raw_input("\n 输入GundamOS密码查看高达第二阶段状态：")
+
+	if passw == PASSWORD:
+		time.sleep(1)
+		print "\n 密码正确！\n\n 第二阶段展开 ...\n"
+		time.sleep(1)
+		print "\n 基础攻击力 %d + 武器攻击附加 %d ---> 完全攻击力 %d\n\n 基础防御力 %d + 防具防御附加 %d ---> 完全防御力 %d\n" % (ak, NAK, ATK, df, NDF, DEF)
+	else:
+		time.sleep(1)
+		print "\n 密码出错！"
+		time.sleep(1)
+		pass_1()
 
 def shop():
 
+	global NAK, NDF
+	
 	need = raw_input(" 我需要[武器or防具]：")
 
 	if "武器" in need:
@@ -228,15 +273,7 @@ def shop():
 		print "\n Jack >>> 喂，作为男人不要乱说些莫名其妙的话！"
 		shop()
 	
-	if NAK == 0 and NDF ==0:
-		ans_2()
-	elif NAK > 0 and NDF == 0:
-		ans_3()
-	elif NAK == 0 and NDF > 0:
-		ans_4()
-	else:
-		ans_5()
-		
+	nak_ndf()
 
 
 def say_bye():
@@ -293,8 +330,6 @@ def getgundam():
 		print "\n 高达信息更新\n 绑定驾驶员\n 请稍侯 ..."
 		time.sleep(1.2)
 	
-		#information()
-		#print " |    驾驶员          %s |\n +---------------------------+\n" % NAME
 		driver()
 		time.sleep(0.5)
 		raw_input("\n 绑定完毕，敲击回车确定")
@@ -309,7 +344,7 @@ def getgundam():
 
 def information():
 	
-	global NUMBER	
+	global NUMBER, hp, mp, ak, df	
 	
 	if NUMBER == "1":
 		print "\n +---------------------------+\n | 1- GAT-X105 Strike Gundam |\n -----------------------------\n |    初始HP             550 |\n -----------------------------\n |    初始MP             150 |\n -----------------------------\n |    攻击力              75 |\n -----------------------------\n |    防御力              30 |\n +---------------------------+"
@@ -420,13 +455,16 @@ def start():
 	
 	time.sleep(0.5)
 	#global GOLD
-	global NAME 
+	global NAME, NAK, NDF, GOLD
+	GOLD = 0
+	NAK = 0
+	NDF = 0
 	NAME = raw_input(" Zeastion >>> 姓名？")
 	age = raw_input(" Zeastion >>> 年龄？")
 	nationality = raw_input(" Zeastion >>> 国籍？")
-	print " ----------------------------------------------\n ----------------------------------------------"
-	raw_input(" Zeastion >>> 好的，资料记录完毕，请确认后设定GundamOS启动密码")
-	
+	print " ----------------------------------------------\n ----------------------------------------------\n Zeastion >>> 好的，资料记录完毕，请确认后设定GundamOS启动密码"
+	time.sleep(0.5)
+
 	print """\n +---------
  | NAME    %s   
  | AGE     %s   
